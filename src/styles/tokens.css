@@ -1,0 +1,12 @@
+/**
+ * Williams Sonoma design tokens
+ */
+:root {
+  --gold: #8b6914;
+  --charcoal: #1a1a1a;
+  --ws-green: #1b4332;
+  --cream: #faf8f5;
+  --rule: #e5e0d8;
+  --mid: #4a4a4a;
+  --light: #6b6b6b;
+}

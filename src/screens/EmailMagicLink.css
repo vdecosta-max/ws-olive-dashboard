@@ -1,0 +1,241 @@
+/**
+ * EmailMagicLink — 600px centered email mock.
+ * Uses tokens: --gold, --ws-green, --cream, --rule, --charcoal, --mid, --light
+ */
+
+.email-magic-link {
+  width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--charcoal);
+  box-sizing: border-box;
+}
+
+/* Header */
+.email-magic-link__header {
+  padding: 24px 24px 0;
+  text-align: center;
+}
+
+.email-magic-link__wordmark {
+  height: 32px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.email-magic-link__rule {
+  margin-top: 16px;
+  border-top: 1px solid #e5e0d8;
+}
+
+/* Body */
+.email-magic-link__body {
+  padding: 24px 24px 32px;
+}
+
+.email-magic-link__headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.email-magic-link__subhead {
+  font-size: 15px;
+  color: var(--mid);
+  margin: 0 0 24px;
+}
+
+.email-magic-link__datetime {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #6b6b6b;
+  margin: 0 0 12px;
+}
+
+/* Conversation summary card */
+.email-magic-link__summary-card {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.email-magic-link__summary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.email-magic-link__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.email-magic-link__agent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.email-magic-link__summary-text {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--mid);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Section titles */
+.email-magic-link__section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin: 0 0 12px;
+}
+
+/* Products */
+.email-magic-link__products {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.email-magic-link__product {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.email-magic-link__product-image {
+  width: 120px;
+  height: 120px;
+  background: var(--rule);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.email-magic-link__product-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin: 0 0 4px;
+}
+
+.email-magic-link__product-price {
+  font-size: 14px;
+  color: var(--mid);
+  margin: 0 0 8px;
+}
+
+.email-magic-link__product-link {
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.email-magic-link__product-link:hover {
+  text-decoration: underline;
+}
+
+/* Themes */
+.email-magic-link__themes-label {
+  font-size: 12px;
+  color: var(--light);
+  margin: 0 0 4px;
+}
+
+.email-magic-link__themes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.email-magic-link__theme-pill {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--charcoal);
+}
+
+/* CTA block */
+.email-magic-link__cta-card {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.email-magic-link__cta-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--charcoal);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.email-magic-link__cta-btn:hover {
+  opacity: 0.9;
+}
+
+.email-magic-link__cta-secondary-label {
+  font-size: 13px;
+  color: var(--mid);
+  margin: 0 0 8px;
+}
+
+.email-magic-link__cta-secondary-link {
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.email-magic-link__cta-secondary-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.email-magic-link__footer {
+  margin-top: 32px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.email-magic-link__footer-wordmark {
+  display: block;
+  margin: 0 auto 12px;
+  width: auto;
+}
+
+.email-magic-link__footer-links {
+  font-size: 11px;
+  color: #6b6b6b;
+  margin: 0;
+}

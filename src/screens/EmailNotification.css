@@ -1,0 +1,196 @@
+/**
+ * EmailNotification — 600px centered email mock.
+ * Patterns copied from EmailMagicLink.css exactly. Minimal, confirmatory.
+ */
+
+.email-notification {
+  width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--charcoal);
+  box-sizing: border-box;
+}
+
+/* Header */
+.email-notification__header {
+  padding: 24px 24px 0;
+  text-align: center;
+}
+
+.email-notification__wordmark {
+  height: 32px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.email-notification__rule {
+  margin-top: 16px;
+  border-top: 1px solid #e5e0d8;
+}
+
+/* Body */
+.email-notification__body {
+  padding: 24px 24px 32px;
+}
+
+.email-notification__headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.email-notification__datetime {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #6b6b6b;
+  margin: 0 0 12px;
+}
+
+/* Conversation summary card */
+.email-notification__summary-card {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.email-notification__summary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.email-notification__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.email-notification__agent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.email-notification__summary-text {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--mid);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Section titles */
+.email-notification__section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin: 0 0 12px;
+}
+
+/* Products */
+.email-notification__products {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.email-notification__product {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.email-notification__product-image {
+  width: 120px;
+  height: 120px;
+  background: var(--rule);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.email-notification__product-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin: 0 0 4px;
+}
+
+.email-notification__product-price {
+  font-size: 14px;
+  color: var(--mid);
+  margin: 0 0 8px;
+}
+
+.email-notification__product-link {
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.email-notification__product-link:hover {
+  text-decoration: underline;
+}
+
+/* CTA block */
+.email-notification__cta-card {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.email-notification__cta-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 24px;
+  background: var(--ws-green);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.email-notification__cta-btn:hover {
+  opacity: 0.9;
+}
+
+/* Footer */
+.email-notification__footer {
+  margin-top: 32px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.email-notification__footer-wordmark {
+  display: block;
+  margin: 0 auto 12px;
+  width: auto;
+}
+
+.email-notification__footer-links {
+  font-size: 11px;
+  color: #6b6b6b;
+  margin: 0;
+}

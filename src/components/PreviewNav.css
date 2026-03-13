@@ -1,0 +1,41 @@
+.preview-nav {
+  display: flex;
+  gap: 0;
+  padding: 8px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e5e0d8;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.preview-nav__btn {
+  padding: 8px 16px;
+  background: transparent;
+  color: #1a1a1a;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.preview-nav__btn:hover {
+  text-decoration: underline;
+}
+
+.preview-nav__btn--active {
+  color: #1b4332;
+  text-decoration: underline;
+}
+
+.preview-nav__btn:focus-visible {
+  outline: 2px solid #1b4332;
+  outline-offset: 2px;
+}
+
+.preview-nav__sep {
+  color: #d0cbc3;
+  padding: 0 4px;
+  font-size: 11px;
+  user-select: none;
+  align-self: center;
+}
