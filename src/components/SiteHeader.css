@@ -203,11 +203,12 @@
   color: #1a1a1a;
 }
 
-/* 3. SECONDARY NAV — compact, 13px */
+/* 3. SECONDARY NAV — compact, 13px, center-aligned, spaced */
 .site-header__secondary {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0;
   padding: 6px 24px;
   background: #fff;
@@ -228,7 +229,7 @@
 
 .site-header__secondary .site-header__nav-sep {
   color: #e0ddd8;
-  margin: 0 6px;
+  margin: 0 14px;
   font-size: 9px;
   font-weight: 300;
   user-select: none;
