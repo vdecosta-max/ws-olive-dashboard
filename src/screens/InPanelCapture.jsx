@@ -183,7 +183,7 @@ export default function InPanelCapture({ captureMode = 'save-prompt' }) {
                       className="in-panel-capture__avatar"
                     />
                     <p className="in-panel-capture__response-text">
-                      Welcome back, Viveka — I&apos;ve saved our conversation to your dashboard.
+                      Welcome back, Hannah — I&apos;ve saved our conversation to your dashboard.
                     </p>
                   </div>
                   <p className="in-panel-capture__timestamp">Olive · 8:27 PM</p>

@@ -31,7 +31,7 @@ export default function EmailExisting() {
         {/* BODY */}
         <div className="email-existing__body">
           <h1 className="email-existing__headline">
-            Hi Viveka, your conversation is saved to your dashboard.
+            Hi Hannah, your conversation is saved to your dashboard.
           </h1>
 
           <p className="email-existing__datetime" aria-hidden="true">

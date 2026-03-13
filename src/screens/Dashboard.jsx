@@ -109,7 +109,7 @@ export default function Dashboard() {
   return (
     <main className="dashboard" role="main" aria-label="My Account">
       <header className="dashboard__header">
-        <h1 className="dashboard__welcome">Hi, Viveka de Costa</h1>
+        <h1 className="dashboard__welcome">Hi, Hannah</h1>
         <a href="#sign-out" className="dashboard__sign-out">Sign Out</a>
       </header>
 

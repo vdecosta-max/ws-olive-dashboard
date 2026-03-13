@@ -31,7 +31,7 @@ export default function EmailNotification() {
         {/* BODY */}
         <div className="email-notification__body">
           <h1 className="email-notification__headline">
-            Hi Viveka, your conversation is saved to your dashboard.
+            Hi Hannah, your conversation is saved to your dashboard.
           </h1>
 
           <p className="email-notification__datetime" aria-hidden="true">
