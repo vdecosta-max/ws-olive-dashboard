@@ -11,23 +11,14 @@ export default function SiteHeader() {
       <nav className="site-header__brand-bar" aria-label="Williams Sonoma family brands">
         <div className="site-header__brand-links">
           <a href="#ws" className="site-header__brand-link site-header__brand-link--active">Williams Sonoma</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#wsh" className="site-header__brand-link">Williams Sonoma Home</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#wsb2b" className="site-header__brand-link">Williams Sonoma Business to Business</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#pb" className="site-header__brand-link">Pottery Barn</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#pbkids" className="site-header__brand-link">Pottery Barn Kids</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#pbteen" className="site-header__brand-link">Pottery Barn Teen</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#westelm" className="site-header__brand-link">West Elm</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#rejuvenation" className="site-header__brand-link">Rejuvenation</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#mg" className="site-header__brand-link">Mark & Graham</a>
-          <span className="site-header__brand-sep" aria-hidden="true"> | </span>
           <a href="#greenrow" className="site-header__brand-link">GreenRow</a>
         </div>
         <div className="site-header__brand-location">
@@ -88,7 +79,9 @@ export default function SiteHeader() {
 
       {/* 3. SECONDARY NAV (white, smaller) — pipes between links */}
       <nav className="site-header__secondary" aria-label="Site sections">
-        <a href="#ai-sous-chef">✦ AI Sous Chef</a>
+        <a href="#ai-sous-chef" className="site-header__ai-sous-chef">
+          <span className="site-header__sparkle" aria-hidden="true">✦</span> AI Sous Chef
+        </a>
         <span className="site-header__nav-sep" aria-hidden="true">|</span>
         <a href="#easter">Easter</a>
         <span className="site-header__nav-sep" aria-hidden="true">|</span>
