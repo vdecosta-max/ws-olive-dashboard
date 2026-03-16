@@ -25,8 +25,11 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 0;
   height: 28px;
   padding: 0 24px;
+  padding-right: 24px; /* ensure min 24px so content never clips */
+  box-sizing: border-box;
   background: #fff;
   border-bottom: 1px solid #e5e0d8;
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -63,23 +66,33 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  padding-right: 0; /* parent bar has 24px right padding */
+  margin-left: auto;
+  white-space: nowrap;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 11px;
-  color: #6b6b6b;
 }
 
-.site-header__brand-location-icon {
+.site-header__location-pin {
   flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  stroke: #1A1A1A;
 }
 
 .site-header__brand-location-link {
-  color: inherit;
+  color: #1a1a1a;
   text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .site-header__brand-location-link:hover {
-  text-decoration: none;
+  text-decoration: underline;
+}
+
+.site-header__brand-location-hours {
+  color: #166534; /* open state green */
 }
 
 /* 1. TOP BAR (black) — compact, full width */
