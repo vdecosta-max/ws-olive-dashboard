@@ -6,6 +6,109 @@
 import { useState, useRef, useEffect } from 'react'
 import './Dashboard.css'
 
+/* Inline SVG icons — thin outline style, viewBox 0 0 24 24, stroke 1.5, fill none */
+const svgProps = { viewBox: '0 0 24 24', fill: 'none', strokeWidth: 1.5 }
+
+function IconFlame({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <path d="M12 2c0 4-3 6-3 9a3 3 0 1 0 6 0c0-3-3-5-3-9" />
+      <path d="M12 2c-2 2-4 5-4 9a4 4 0 0 0 8 0c0-4-2-7-4-9" />
+    </svg>
+  )
+}
+
+function IconPan({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <ellipse cx="12" cy="10" rx="8" ry="6" />
+      <path d="M4 10v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" />
+      <path d="M8 20v2M16 20v2" />
+    </svg>
+  )
+}
+
+function IconWineGlass({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <path d="M8 2h8v6a4 4 0 0 1-2 3.5 6 6 0 0 1-6 0A4 4 0 0 1 8 8V2Z" />
+      <line x1="12" y1="11" x2="12" y2="22" />
+      <line x1="8" y1="22" x2="16" y2="22" />
+    </svg>
+  )
+}
+
+function IconPlate({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <circle cx="12" cy="11" r="6" />
+      <path d="M8 11h8M11 8v6M8 17l-1 2h10l-1-2" />
+    </svg>
+  )
+}
+
+function IconRuler({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <path d="M3 8h18M3 16h18M4 8v8M8 8v8M12 8v8M16 8v8M20 8v8" />
+      <line x1="3" y1="8" x2="3" y2="16" />
+      <line x1="21" y1="8" x2="21" y2="16" />
+    </svg>
+  )
+}
+
+function IconBag({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
+    </svg>
+  )
+}
+
+function IconCalendar({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </svg>
+  )
+}
+
+function IconPot({ className, size = 24, color = '#1A1A1A' }) {
+  return (
+    <svg className={className} width={size} height={size} {...svgProps} stroke={color} aria-hidden="true">
+      <path d="M6 6h12v6a4 4 0 0 1-2 3.5 2 2 0 0 1-2 2H10a2 2 0 0 1-2-2 0A4 4 0 0 1 6 12V6Z" />
+      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <line x1="8" y1="18" x2="16" y2="18" />
+    </svg>
+  )
+}
+
+/** Product placeholder icon lookup: pot, plate, pan */
+const PLACEHOLDER_ICONS = { pot: IconPot, plate: IconPlate, pan: IconPan }
+
+function ProductPlaceholder({ category = 'pot', className }) {
+  const Icon = PLACEHOLDER_ICONS[category] ?? IconPot
+  return (
+    <div className={`product-placeholder ${className ?? ''}`.trim()} aria-hidden="true">
+      <Icon size={32} color="#D0CBC3" />
+    </div>
+  )
+}
+
+/** Theme icon lookup */
+const THEME_ICONS = {
+  'Induction Cooking': IconFlame,
+  'Cast Iron Care': IconPan,
+  'Holiday Entertaining': IconWineGlass,
+  'Dining & Tabletop': IconPlate,
+  'Small Kitchen': IconRuler,
+}
+
 const CONVERSATIONS = [
   {
     id: '1',
@@ -18,9 +121,9 @@ const CONVERSATIONS = [
     date: '3 days ago',
     contentIcons: [{ type: 'products', count: 3 }],
     products: [
-      { name: 'Lodge Cast Iron Skillet', price: '$49.95', pill: 'olive' },
-      { name: 'Le Creuset Signature Skillet', price: '$229.95', pill: 'olive' },
-      { name: 'All-Clad D3 Skillet', price: '$129.95', pill: 'olive' },
+      { name: 'Lodge Cast Iron Skillet', price: '$49.95', pill: 'olive', placeholderCategory: 'pan' },
+      { name: 'Le Creuset Signature Skillet', price: '$229.95', pill: 'olive', placeholderCategory: 'pan' },
+      { name: 'All-Clad D3 Skillet', price: '$129.95', pill: 'olive', placeholderCategory: 'pan' },
     ],
     cta: 'Continue with Olive →',
     themeMatches: ['Cast Iron Care', 'Induction Cooking', 'Small Kitchen'],
@@ -36,9 +139,9 @@ const CONVERSATIONS = [
     date: '5 days ago',
     contentIcons: [{ type: 'products', count: 3 }],
     products: [
-      { name: 'Benchwright Dining Table', price: '$899', pill: 'pb' },
-      { name: 'Toscana Dining Chairs (set of 2)', price: '$598', pill: 'pb' },
-      { name: 'Toulouse Table Runner', price: '$49', pill: 'pb' },
+      { name: 'Benchwright Dining Table', price: '$899', pill: 'pb', placeholderCategory: 'plate' },
+      { name: 'Toscana Dining Chairs (set of 2)', price: '$598', pill: 'pb', placeholderCategory: 'plate' },
+      { name: 'Toulouse Table Runner', price: '$49', pill: 'pb', placeholderCategory: 'plate' },
     ],
     cta: 'Continue with Style Advisor →',
     themeMatches: ['Dining & Tabletop'],
@@ -54,9 +157,9 @@ const CONVERSATIONS = [
     date: '2 weeks ago',
     contentIcons: [{ type: 'products', count: 3 }],
     products: [
-      { name: 'Riedel Crystal Set', price: '$189', pill: 'elm' },
-      { name: 'Gold-Rimmed Coupe Glasses', price: '$89.95', pill: 'elm' },
-      { name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'elm' },
+      { name: 'Riedel Crystal Set', price: '$189', pill: 'elm', placeholderCategory: 'plate' },
+      { name: 'Gold-Rimmed Coupe Glasses', price: '$89.95', pill: 'elm', placeholderCategory: 'plate' },
+      { name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'elm', placeholderCategory: 'pot' },
     ],
     cta: 'Continue with Elm →',
     themeMatches: ['Cast Iron Care', 'Holiday Entertaining'],
@@ -78,18 +181,18 @@ const THEMES = [
 const THEME_FILTER_COUNTS = Object.fromEntries(THEMES.map((t) => [t.label, t.count]))
 
 const PRODUCTS_WE_TALKED_ABOUT = [
-  { id: 'p1', name: 'Lodge Cast Iron Skillet', price: '$49.95', pill: 'olive' },
-  { id: 'p2', name: 'Le Creuset Signature Skillet', price: '$229.95', pill: 'olive' },
-  { id: 'p3', name: 'Benchwright Dining Table', price: '$899', pill: 'elm' },
-  { id: 'p4', name: 'Riedel Crystal Set', price: '$189', pill: 'olive' },
-  { id: 'p5', name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'olive' },
+  { id: 'p1', name: 'Lodge Cast Iron Skillet', price: '$49.95', pill: 'olive', placeholderCategory: 'pan' },
+  { id: 'p2', name: 'Le Creuset Signature Skillet', price: '$229.95', pill: 'olive', placeholderCategory: 'pan' },
+  { id: 'p3', name: 'Benchwright Dining Table', price: '$899', pill: 'elm', placeholderCategory: 'plate' },
+  { id: 'p4', name: 'Riedel Crystal Set', price: '$189', pill: 'olive', placeholderCategory: 'plate' },
+  { id: 'p5', name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'olive', placeholderCategory: 'pot' },
 ]
 
 const MOCK_RECENTLY_VIEWED = [
-  { id: '1', name: 'Lodge Chef Seasoned Cast Iron Double Dutch Oven, 6-Qt.', price: '$99.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Dutch+Oven', alt: 'Lodge Cast Iron Double Dutch Oven' },
-  { id: '2', name: 'Green Cyprus Reactive Glaze Dinner Plates', price: '$17.95 – $143.60', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Plates', alt: 'Green Cyprus Dinner Plates' },
-  { id: '3', name: 'Nordic Ware Nonstick Silver Dollar Pancake Pan', price: '$49.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Pancake+Pan', alt: 'Nordic Ware Silver Dollar Pancake Pan' },
-  { id: '4', name: 'Nordic Ware Nonstick Mickey Mouse™ Pancake Pan', price: '$59.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Mickey+Pan', alt: 'Nordic Ware Mickey Mouse Pancake Pan' },
+  { id: '1', name: 'Lodge Chef Seasoned Cast Iron Double Dutch Oven, 6-Qt.', price: '$99.95', alt: 'Lodge Cast Iron Double Dutch Oven', placeholderCategory: 'pot' },
+  { id: '2', name: 'Green Cyprus Reactive Glaze Dinner Plates', price: '$17.95 – $143.60', alt: 'Green Cyprus Dinner Plates', placeholderCategory: 'plate' },
+  { id: '3', name: 'Nordic Ware Nonstick Silver Dollar Pancake Pan', price: '$49.95', alt: 'Nordic Ware Silver Dollar Pancake Pan', placeholderCategory: 'pan' },
+  { id: '4', name: 'Nordic Ware Nonstick Mickey Mouse™ Pancake Pan', price: '$59.95', alt: 'Nordic Ware Mickey Mouse Pancake Pan', placeholderCategory: 'pan' },
 ]
 
 const ACCOUNT_TABS = [
@@ -116,12 +219,18 @@ function matchesTheme(conv, theme) {
   return (conv.themeMatches || []).includes(theme)
 }
 
+const CONTENT_ICON_SVGS = {
+  products: IconBag,
+  recipes: IconPan,
+  events: IconCalendar,
+}
+
 function ContentIcon({ type, count }) {
-  const icons = { products: '🛍️', recipes: '🍳', events: '📅' }
+  const Icon = CONTENT_ICON_SVGS[type]
   const label = CONTENT_ICON_LABELS[type]?.(count) ?? `${count} ${type}`
   return (
     <span className="conversation-accordion__content-icon" title={label} aria-label={label}>
-      {icons[type] ?? '•'}
+      {Icon ? <Icon size={16} color="#6B6B6B" /> : '•'}
     </span>
   )
 }
@@ -180,7 +289,7 @@ function ConversationAccordion({ conv, isOpen, onToggle, forceOpen, isFilteredMa
           <div className="conversation-accordion__products-grid">
             {conv.products.map((p, i) => (
               <div key={i} className="conversation-accordion__product-tile">
-                <div className="conversation-accordion__product-thumb" aria-hidden="true" />
+                <ProductPlaceholder category={p.placeholderCategory} className="conversation-accordion__product-thumb" />
                 <p className="conversation-accordion__product-name">{p.name}</p>
                 <span className={`conversation-accordion__pill conversation-accordion__pill--${p.pill}`}>
                   {PILL_LABELS[p.pill]}
@@ -212,7 +321,7 @@ function ProductCard({ product }) {
   return (
     <article className="dashboard-product-card" aria-label={`${product.name}, ${product.price}`}>
       <div className="dashboard-product-card__image-wrap">
-        <img src={product.imageUrl} alt={product.alt} width="200" height="200" loading="lazy" />
+        <ProductPlaceholder category={product.placeholderCategory} className="dashboard-product-card__placeholder" />
         <button
           type="button"
           className="dashboard-product-card__favorite"
@@ -425,7 +534,12 @@ export default function Dashboard() {
                   onClick={() => handleThemeTileClick(item.label)}
                 >
                   <span className="interest-tile__label">{item.label}</span>
-                  <span className="interest-tile__emoji" aria-hidden="true">{item.emoji}</span>
+                  <span className="interest-tile__icon" aria-hidden="true">
+                    {(() => {
+                      const Icon = THEME_ICONS[item.label]
+                      return Icon ? <Icon size={24} color="#1A1A1A" /> : null
+                    })()}
+                  </span>
                   <span className="interest-tile__count">{item.count} conversations</span>
                 </button>
               ))}
@@ -442,7 +556,7 @@ export default function Dashboard() {
             <div className="products-scroll" role="list">
               {PRODUCTS_WE_TALKED_ABOUT.map((p) => (
                 <article key={p.id} className="product-talked-card" role="listitem">
-                  <div className="product-talked-card__thumb" aria-hidden="true" />
+                  <ProductPlaceholder category={p.placeholderCategory} className="product-talked-card__thumb" />
                   <p className="product-talked-card__name">{p.name}</p>
                   <span className={`product-talked-card__badge product-talked-card__badge--${p.pill}`}>
                     {PILL_LABELS[p.pill]}
