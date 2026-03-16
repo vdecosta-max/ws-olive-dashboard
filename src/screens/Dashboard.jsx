@@ -88,14 +88,13 @@ function IconPot({ className, size = 24, color = '#1A1A1A' }) {
   )
 }
 
-/** Product placeholder icon lookup: pot, plate, pan */
-const PLACEHOLDER_ICONS = { pot: IconPot, plate: IconPlate, pan: IconPan }
-
-function ProductPlaceholder({ category = 'pot', className }) {
-  const Icon = PLACEHOLDER_ICONS[category] ?? IconPot
+/** WS-in-box placeholder — square outline, "WS" text, 3px padding, #D0CBC3 */
+function ProductPlaceholder({ category, className }) {
   return (
-    <div className={`product-placeholder ${className ?? ''}`.trim()} aria-hidden="true">
-      <Icon size={32} color="#D0CBC3" />
+    <div className={`product-placeholder product-placeholder--ws-box ${className ?? ''}`.trim()} aria-hidden="true">
+      <span className="product-placeholder__ws-box">
+        <span className="product-placeholder__ws-text">WS</span>
+      </span>
     </div>
   )
 }
