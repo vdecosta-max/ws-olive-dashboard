@@ -23,7 +23,7 @@ const CONVERSATIONS = [
       { name: 'All-Clad D3 Skillet', price: '$129.95', pill: 'olive' },
     ],
     cta: 'Continue with Olive →',
-    themeMatches: ['Cast Iron Care', 'Induction Cooking'],
+    themeMatches: ['Cast Iron Care', 'Induction Cooking', 'Small Kitchen'],
   },
   {
     id: '2',
@@ -59,7 +59,7 @@ const CONVERSATIONS = [
       { name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'elm' },
     ],
     cta: 'Continue with Elm →',
-    themeMatches: ['Holiday Entertaining'],
+    themeMatches: ['Cast Iron Care', 'Holiday Entertaining'],
   },
 ]
 
@@ -73,6 +73,9 @@ const THEMES = [
   { label: 'Dining & Tabletop', emoji: '🍽️', count: 2 },
   { label: 'Small Kitchen', emoji: '📐', count: 1 },
 ]
+
+/** Theme tile counts for filter match labels (historical totals) */
+const THEME_FILTER_COUNTS = Object.fromEntries(THEMES.map((t) => [t.label, t.count]))
 
 const PRODUCTS_WE_TALKED_ABOUT = [
   { id: 'p1', name: 'Lodge Cast Iron Skillet', price: '$49.95', pill: 'olive' },
@@ -321,6 +324,8 @@ export default function Dashboard() {
               )}
             </div>
 
+            <p className="dashboard__conversation-themes-label">CONVERSATION THEMES</p>
+
             {/* Filter chip row */}
             <div className="filter-chips-wrap">
               <div className="filter-chips" role="list">
@@ -357,11 +362,14 @@ export default function Dashboard() {
                   </button>
                 ))}
               </div>
-              {activeFilter && (
-                <p className="filter-chips__match-count">
-                  {matchCount} conversation{matchCount !== 1 ? 's' : ''} match{matchCount !== 1 ? '' : 'es'} {activeFilter}
-                </p>
-              )}
+              {activeFilter && (() => {
+                const filterCount = THEME_FILTER_COUNTS[activeFilter] ?? 0
+                return (
+                  <p className="filter-chips__match-count">
+                    {filterCount} conversation{filterCount !== 1 ? 's' : ''}
+                  </p>
+                )
+              })()}
             </div>
 
             <div className="filter-chips-rule" aria-hidden="true" />
