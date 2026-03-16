@@ -51,7 +51,10 @@ export default function EmailMagicLink() {
                 alt="Olive"
                 className="email-magic-link__avatar"
               />
-              <span className="email-magic-link__agent">Olive · Williams Sonoma</span>
+              <span className="email-magic-link__agent">
+                <img src="/ws-favicon.ico" alt="" width="16" height="16" className="email-magic-link__agent-icon" />
+                Olive · Williams Sonoma
+              </span>
             </div>
             <p className="email-magic-link__summary-text">{CONVERSATION_SUMMARY}</p>
           </div>

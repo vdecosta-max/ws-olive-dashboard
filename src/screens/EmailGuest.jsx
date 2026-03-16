@@ -48,7 +48,10 @@ export default function EmailGuest() {
                 alt="Olive"
                 className="email-guest__avatar"
               />
-              <span className="email-guest__agent">Olive · Williams Sonoma</span>
+              <span className="email-guest__agent">
+                <img src="/ws-favicon.ico" alt="" width="16" height="16" className="email-guest__agent-icon" />
+                Olive · Williams Sonoma
+              </span>
             </div>
             <p className="email-guest__summary-text">{CONVERSATION_SUMMARY}</p>
           </div>

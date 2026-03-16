@@ -90,6 +90,12 @@
   color: var(--charcoal);
 }
 
+.email-magic-link__agent-icon {
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 .email-magic-link__summary-text {
   font-size: 14px;
   font-style: italic;

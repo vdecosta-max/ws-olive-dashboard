@@ -46,7 +46,10 @@ export default function EmailExisting() {
                 alt="Olive"
                 className="email-existing__avatar"
               />
-              <span className="email-existing__agent">Olive · Williams Sonoma</span>
+              <span className="email-existing__agent">
+                <img src="/ws-favicon.ico" alt="" width="16" height="16" className="email-existing__agent-icon" />
+                Olive · Williams Sonoma
+              </span>
             </div>
             <p className="email-existing__summary-text">{CONVERSATION_SUMMARY}</p>
           </div>

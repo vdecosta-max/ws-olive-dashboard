@@ -134,99 +134,244 @@
   margin: 0 0 16px;
 }
 
-/* MY CONVERSATIONS */
-.conversation-list {
+/* MY CONVERSATIONS — Accordion */
+.conversation-accordion-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
-.conversation-card {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--rule);
+.conversation-accordion {
+  background: #fff;
+  border: 1.5px solid #e5e0d8;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.conversation-card:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.conversation-card__brand {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--charcoal);
-  margin: 0 0 8px;
-}
-
-.conversation-card__summary {
-  font-size: 14px;
-  font-style: italic;
-  color: var(--mid);
-  margin: 0 0 12px;
-  line-height: 1.4;
-}
-
-.conversation-card__products {
+.conversation-accordion__header {
   display: flex;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.conversation-card__product {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  min-width: 80px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
 }
 
-.conversation-card__thumb {
-  width: 60px;
-  height: 60px;
-  background: var(--rule);
-  border-radius: 4px;
+.conversation-accordion__header-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  flex: 1;
+  min-width: 0;
 }
 
-.conversation-card__product-name,
-.conversation-card__product-price {
-  font-size: 12px;
-  color: var(--mid);
-  text-align: center;
+.conversation-accordion__brand-row {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.conversation-card__date {
+.conversation-accordion__brand-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.conversation-accordion__agent-brand {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.conversation-accordion__sep {
+  color: var(--light);
+  font-size: 10px;
+}
+
+.conversation-accordion__date {
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 12px;
   color: var(--light);
-  margin: 0 0 12px;
 }
 
-.conversation-card__ctas {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
+.conversation-accordion__summary-preview {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-.conversation-card__cta {
+.conversation-accordion__summary-preview--full {
+  white-space: normal;
+}
+
+.conversation-accordion__content-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.conversation-accordion__content-icon {
   font-size: 14px;
+  cursor: help;
+}
+
+.conversation-accordion__header-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.conversation-accordion__cta {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--ws-green);
+  font-weight: 500;
   text-decoration: none;
 }
 
-.conversation-card__cta--green {
-  color: var(--ws-green);
-  font-weight: 500;
-}
-
-.conversation-card__cta--green:hover {
+.conversation-accordion__cta:hover {
   text-decoration: underline;
 }
 
-.conversation-card__cta--grey {
+.conversation-accordion__chevron {
+  font-size: 20px;
   color: var(--light);
+  margin-left: 16px;
 }
 
-.conversation-card__cta--grey:hover {
+.conversation-accordion__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+}
+
+.conversation-accordion--open .conversation-accordion__body {
+  max-height: 800px;
+  transition: max-height 0.4s ease-in;
+}
+
+.conversation-accordion__body-inner {
+  padding: 0 20px 20px;
+  border-top: 1px solid #e5e0d8;
+  margin: 0 20px;
+}
+
+.conversation-accordion__full-summary {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--mid);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.conversation-accordion__discussed-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 12px;
+}
+
+.conversation-accordion__products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.conversation-accordion__product-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.conversation-accordion__product-thumb {
+  width: 80px;
+  height: 80px;
+  background: var(--rule);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.conversation-accordion__product-name {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin: 0 0 4px;
+}
+
+.conversation-accordion__pill {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+}
+
+.conversation-accordion__pill--olive {
+  background: var(--ws-green);
+}
+
+.conversation-accordion__pill--pb {
+  background: var(--gold);
+}
+
+.conversation-accordion__pill--elm {
+  background: var(--sage);
+}
+
+.conversation-accordion__product-price {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  margin: 0 0 6px;
+}
+
+.conversation-accordion__view-link {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.conversation-accordion__view-link:hover {
   text-decoration: underline;
+}
+
+.conversation-accordion__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.conversation-accordion__close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--light);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
 }
 
 /* MY INTERESTS */
@@ -245,13 +390,14 @@
   background: var(--cream);
   border: 1px solid var(--rule);
   border-radius: 8px;
-  text-decoration: none;
   color: var(--charcoal);
   font-size: 14px;
   text-align: center;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.interest-tile:hover {
+.interest-tile:hover:not(.interest-tile--disabled):not(.interest-tile--discover) {
   border-color: var(--gold);
 }
 
@@ -260,18 +406,39 @@
 }
 
 .interest-tile__count {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--light);
+}
+
+.interest-tile--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
 }
 
 .interest-tile--discover {
   border: 2px dashed var(--rule);
   color: var(--gold);
   font-weight: 500;
+  cursor: default;
+  pointer-events: none;
 }
 
 .interest-tile--discover:hover {
-  border-color: var(--gold);
+  border-color: var(--rule);
+}
+
+.dashboard__back-to-themes {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--gold);
+  text-decoration: none;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.dashboard__back-to-themes:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 600px) {
@@ -329,12 +496,36 @@
 }
 
 .product-talked-card__badge {
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin: 4px 0;
+}
+
+.product-talked-card__badge--olive {
+  background: var(--ws-green);
+}
+
+.product-talked-card__badge--pb {
+  background: var(--gold);
+}
+
+.product-talked-card__badge--elm {
+  background: var(--sage);
+}
+
+.product-talked-card__view {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
   color: var(--gold);
-  background: rgba(139, 105, 20, 0.12);
-  padding: 4px 10px;
-  border-radius: 999px;
+  text-decoration: none;
+}
+
+.product-talked-card__view:hover {
+  text-decoration: underline;
 }
 
 /* Recent Orders section */

@@ -78,6 +78,12 @@
   flex-shrink: 0;
 }
 
+.email-notification__agent-icon {
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 .email-notification__agent {
   font-size: 14px;
   font-weight: 600;

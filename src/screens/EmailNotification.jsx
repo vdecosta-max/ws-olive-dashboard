@@ -46,7 +46,10 @@ export default function EmailNotification() {
                 alt="Olive"
                 className="email-notification__avatar"
               />
-              <span className="email-notification__agent">Olive · Williams Sonoma</span>
+              <span className="email-notification__agent">
+                <img src="/ws-favicon.ico" alt="" width="16" height="16" className="email-notification__agent-icon" />
+                Olive · Williams Sonoma
+              </span>
             </div>
             <p className="email-notification__summary-text">{CONVERSATION_SUMMARY}</p>
           </div>
