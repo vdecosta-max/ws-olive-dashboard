@@ -324,7 +324,7 @@ export default function Dashboard() {
               )}
             </div>
 
-            <p className="dashboard__conversation-themes-label">CONVERSATION THEMES</p>
+            <p className="conversation-accordion__discussed-label dashboard__conversation-themes-label">CONVERSATION THEMES</p>
 
             {/* Filter chip row */}
             <div className="filter-chips-wrap">
