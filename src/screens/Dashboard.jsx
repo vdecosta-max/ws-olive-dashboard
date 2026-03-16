@@ -1,9 +1,9 @@
 /**
  * Dashboard — My Account screen for Williams Sonoma Olive prototype.
- * Left: OUR CONVERSATIONS (accordion), THEMES, PRODUCTS & RECIPES
+ * Left: OUR CONVERSATIONS (accordion + filter chips + pagination), THEMES, PRODUCTS & RECIPES
  * Right: RECENT ORDERS, RECENTLY VIEWED
  */
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './Dashboard.css'
 
 const CONVERSATIONS = [
@@ -23,7 +23,7 @@ const CONVERSATIONS = [
       { name: 'All-Clad D3 Skillet', price: '$129.95', pill: 'olive' },
     ],
     cta: 'Continue with Olive →',
-    themeFilter: 'Cast Iron Care',
+    themeMatches: ['Cast Iron Care', 'Induction Cooking'],
   },
   {
     id: '2',
@@ -41,7 +41,7 @@ const CONVERSATIONS = [
       { name: 'Toulouse Table Runner', price: '$49', pill: 'pb' },
     ],
     cta: 'Continue with Style Advisor →',
-    themeFilter: null,
+    themeMatches: ['Dining & Tabletop'],
   },
   {
     id: '3',
@@ -59,9 +59,12 @@ const CONVERSATIONS = [
       { name: 'GreenPan Reserve Stockpot', price: '$179.95', pill: 'elm' },
     ],
     cta: 'Continue with Elm →',
-    themeFilter: null,
+    themeMatches: ['Holiday Entertaining'],
   },
 ]
+
+const FILTER_CHIPS_PRIMARY = ['Cast Iron Care', 'Induction Cooking', 'Holiday Entertaining']
+const FILTER_CHIPS_MORE = ['Dining & Tabletop', 'Small Kitchen', '✦ Ask Olive something new']
 
 const THEMES = [
   { label: 'Induction Cooking', emoji: '🔥', count: 3 },
@@ -103,6 +106,13 @@ const PILL_LABELS = {
   elm: 'Elm Recommended',
 }
 
+const PER_PAGE = 5
+
+function matchesTheme(conv, theme) {
+  if (!theme || theme === '✦ Ask Olive something new') return false
+  return (conv.themeMatches || []).includes(theme)
+}
+
 function ContentIcon({ type, count }) {
   const icons = { products: '🛍️', recipes: '🍳', events: '📅' }
   const label = CONTENT_ICON_LABELS[type]?.(count) ?? `${count} ${type}`
@@ -113,15 +123,14 @@ function ContentIcon({ type, count }) {
   )
 }
 
-function ConversationAccordion({ conv, isOpen, onToggle, forceOpen }) {
-  const expanded = isOpen || forceOpen
+function ConversationAccordion({ conv, isOpen, onToggle, forceOpen, isFilteredMatch }) {
+  const expanded = (isFilteredMatch !== false) && (isOpen || forceOpen)
 
   return (
     <article
-      className={`conversation-accordion ${expanded ? 'conversation-accordion--open' : ''}`}
+      className={`conversation-accordion ${expanded ? 'conversation-accordion--open' : ''} ${isFilteredMatch === false ? 'conversation-accordion--dimmed' : ''}`}
       role="listitem"
     >
-      {/* Closed row (always visible) / Header */}
       <button
         type="button"
         className="conversation-accordion__header"
@@ -157,7 +166,6 @@ function ConversationAccordion({ conv, isOpen, onToggle, forceOpen }) {
         </div>
       </button>
 
-      {/* Expandable body */}
       <div
         id={`conv-body-${conv.id}`}
         className="conversation-accordion__body"
@@ -225,7 +233,12 @@ export default function Dashboard() {
   const [orderNumber, setOrderNumber] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [openConvId, setOpenConvId] = useState(null)
-  const [themeFilter, setThemeFilter] = useState(null)
+  const [activeFilter, setActiveFilter] = useState(null)
+  const [chipExpanded, setChipExpanded] = useState(false)
+  const [page, setPage] = useState(1)
+  const [pulseChip, setPulseChip] = useState(null)
+  const conversationsRef = useRef(null)
+  const chipRefs = useRef({})
 
   const handleOrderSearch = (e) => {
     e.preventDefault()
@@ -236,10 +249,40 @@ export default function Dashboard() {
     setOpenConvId((prev) => (prev === id ? null : id))
   }
 
-  const castIronConv = CONVERSATIONS.find((c) => c.themeFilter === 'Cast Iron Care')
-  const showFilteredThemes = themeFilter === 'Cast Iron Care'
-  const displayedConvs = showFilteredThemes ? [castIronConv] : CONVERSATIONS
-  const forceOpenInFilter = showFilteredThemes ? castIronConv?.id : null
+  const setFilter = (theme) => {
+    if (theme === activeFilter) {
+      setActiveFilter(null)
+    } else {
+      setActiveFilter(theme)
+      setPage(1)
+    }
+  }
+
+  const clearFilter = () => {
+    setActiveFilter(null)
+    setPage(1)
+  }
+
+  const handleThemeTileClick = (theme) => {
+    if (theme === '✦ Ask Olive something new') return
+    setFilter(theme)
+    setChipExpanded(false)
+    setPulseChip(theme)
+    setTimeout(() => setPulseChip(null), 300)
+    conversationsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const matchCount = activeFilter
+    ? CONVERSATIONS.filter((c) => matchesTheme(c, activeFilter)).length
+    : 0
+
+  const totalPages = Math.max(1, Math.ceil(CONVERSATIONS.length / PER_PAGE))
+  const startIdx = (page - 1) * PER_PAGE
+  const paginatedConvs = CONVERSATIONS.slice(startIdx, startIdx + PER_PAGE)
+
+  useEffect(() => {
+    if (page > totalPages) setPage(1)
+  }, [page, totalPages])
 
   return (
     <main className="dashboard" role="main" aria-label="My Account">
@@ -265,70 +308,124 @@ export default function Dashboard() {
 
       <div className="dashboard__content">
         <div className="dashboard__left">
-          {/* OUR CONVERSATIONS — hidden when theme filter is active */}
-          {!showFilteredThemes && (
-            <section className="dashboard__card" aria-labelledby="conversations-heading">
-              <h2 id="conversations-heading" className="dashboard__card-title">OUR CONVERSATIONS</h2>
-              <div className="conversation-accordion-list" role="list">
-                {CONVERSATIONS.map((conv) => (
-                  <ConversationAccordion
-                    key={conv.id}
-                    conv={conv}
-                    isOpen={openConvId === conv.id}
-                    onToggle={toggleConv}
-                    forceOpen={false}
-                  />
+          {/* OUR CONVERSATIONS */}
+          <section className="dashboard__card dashboard__card--conversations" aria-labelledby="conversations-heading" ref={conversationsRef}>
+            <div className="dashboard__conversations-header">
+              <h2 id="conversations-heading" className="dashboard__card-title">
+                {activeFilter ? `OUR CONVERSATIONS — ${activeFilter}` : 'OUR CONVERSATIONS'}
+              </h2>
+              {activeFilter && (
+                <a href="#clear" className="dashboard__clear-filter" onClick={(e) => { e.preventDefault(); clearFilter() }}>
+                  ✕ Clear
+                </a>
+              )}
+            </div>
+
+            {/* Filter chip row */}
+            <div className="filter-chips-wrap">
+              <div className="filter-chips" role="list">
+                {FILTER_CHIPS_PRIMARY.map((label) => (
+                  <button
+                    key={label}
+                    type="button"
+                    className={`filter-chip ${activeFilter === label ? 'filter-chip--active' : ''} ${pulseChip === label ? 'filter-chip--pulse' : ''}`}
+                    role="listitem"
+                    onClick={() => setFilter(label)}
+                  >
+                    {label}
+                    {activeFilter === label && <span className="filter-chip__x" aria-hidden="true"> ✕</span>}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className={`filter-chip filter-chip--more ${chipExpanded ? 'filter-chip--expanded' : ''}`}
+                  onClick={() => setChipExpanded(!chipExpanded)}
+                  aria-expanded={chipExpanded}
+                >
+                  {chipExpanded ? '− Less' : '+ 3 more ▾'}
+                </button>
+                {chipExpanded && FILTER_CHIPS_MORE.map((label) => (
+                  <button
+                    key={label}
+                    type="button"
+                    className={`filter-chip ${activeFilter === label ? 'filter-chip--active' : ''} ${pulseChip === label ? 'filter-chip--pulse' : ''} ${label === '✦ Ask Olive something new' ? 'filter-chip--ask' : ''}`}
+                    role="listitem"
+                    onClick={() => label !== '✦ Ask Olive something new' && setFilter(label)}
+                  >
+                    {label}
+                    {activeFilter === label && <span className="filter-chip__x" aria-hidden="true"> ✕</span>}
+                  </button>
                 ))}
               </div>
-            </section>
-          )}
+              {activeFilter && (
+                <p className="filter-chips__match-count">
+                  {matchCount} conversation{matchCount !== 1 ? 's' : ''} match{matchCount !== 1 ? '' : 'es'} {activeFilter}
+                </p>
+              )}
+            </div>
+
+            <div className="filter-chips-rule" aria-hidden="true" />
+
+            <div className="conversation-accordion-list" role="list">
+              {paginatedConvs.map((conv) => (
+                <ConversationAccordion
+                  key={conv.id}
+                  conv={conv}
+                  isOpen={openConvId === conv.id}
+                  onToggle={toggleConv}
+                  forceOpen={activeFilter ? matchesTheme(conv, activeFilter) : false}
+                  isFilteredMatch={activeFilter ? matchesTheme(conv, activeFilter) : null}
+                />
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="dashboard__pagination-rule" aria-hidden="true" />
+            <div className="dashboard__pagination">
+              <button
+                type="button"
+                className="dashboard__pagination-btn"
+                disabled={page <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                ← Previous
+              </button>
+              <span className="dashboard__pagination-page">
+                Page {page} of {totalPages}
+              </span>
+              <button
+                type="button"
+                className="dashboard__pagination-btn"
+                disabled={page >= totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              >
+                Next →
+              </button>
+            </div>
+          </section>
 
           {/* THEMES ACROSS OUR CONVERSATIONS */}
           <section className="dashboard__card" aria-labelledby="themes-heading">
             <h2 id="themes-heading" className="dashboard__card-title">THEMES ACROSS OUR CONVERSATIONS</h2>
-            <div className={`interests-grid ${showFilteredThemes ? 'interests-grid--filtered' : ''}`} role="list">
-              {THEMES.map((item) => {
-                const isCastIron = item.label === 'Cast Iron Care'
-                const isInteractive = isCastIron
-                return (
-                  <button
-                    key={item.label}
-                    type="button"
-                    className={`interest-tile ${showFilteredThemes && !isCastIron ? 'interest-tile--disabled' : ''} ${showFilteredThemes && isCastIron ? 'interest-tile--active' : ''}`}
-                    role="listitem"
-                    onClick={isInteractive ? () => setThemeFilter(themeFilter === 'Cast Iron Care' ? null : 'Cast Iron Care') : undefined}
-                    disabled={showFilteredThemes && !isCastIron}
-                  >
-                    <span className="interest-tile__label">{item.label}</span>
-                    <span className="interest-tile__emoji" aria-hidden="true">{item.emoji}</span>
-                    <span className="interest-tile__count">{item.count} conversations</span>
-                  </button>
-                )
-              })}
-              <span className="interest-tile interest-tile--discover" role="listitem" aria-disabled="true">
-                + Discover more
+            <div className="interests-grid" role="list">
+              {THEMES.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="interest-tile"
+                  role="listitem"
+                  onClick={() => handleThemeTileClick(item.label)}
+                >
+                  <span className="interest-tile__label">{item.label}</span>
+                  <span className="interest-tile__emoji" aria-hidden="true">{item.emoji}</span>
+                  <span className="interest-tile__count">{item.count} conversations</span>
+                </button>
+              ))}
+              <span className="interest-tile interest-tile--ask-olive" role="listitem" aria-disabled="true" title="Ask Olive something new">
+                <span className="interest-tile__sparkle" aria-hidden="true">✦</span>
+                Ask Olive something new
               </span>
             </div>
-            {showFilteredThemes && castIronConv && (
-              <>
-                <a
-                  href="#back"
-                  className="dashboard__back-to-themes"
-                  onClick={(e) => { e.preventDefault(); setThemeFilter(null) }}
-                >
-                  ← Back to all themes
-                </a>
-                <div className="dashboard__theme-filtered-convs" role="list">
-                  <ConversationAccordion
-                    key={castIronConv.id}
-                    conv={castIronConv}
-                    isOpen={true}
-                    onToggle={toggleConv}
-                    forceOpen={true}
-                  />
-                </div>
-              </>
-            )}
           </section>
 
           {/* PRODUCTS & RECIPES WE TALKED ABOUT RECENTLY */}
