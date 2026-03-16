@@ -119,10 +119,10 @@
 .email-existing__product-image {
   width: 120px;
   height: 120px;
-  background: var(--rule);
   border-radius: 8px;
   margin-bottom: 12px;
   flex-shrink: 0;
+  object-fit: cover;
 }
 
 .email-existing__product-name {

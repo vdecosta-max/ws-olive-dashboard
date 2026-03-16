@@ -41,8 +41,9 @@
 .in-panel-capture__main-image {
   width: 500px;
   height: 500px;
-  background: #e5e0d8;
   border-radius: 8px;
+  object-fit: cover;
+  display: block;
 }
 
 .in-panel-capture__thumbs {
@@ -54,9 +55,16 @@
 .in-panel-capture__thumb {
   width: 60px;
   height: 60px;
-  background: #e5e0d8;
-  border-radius: 4px;
+  border-radius: 6px;
+  object-fit: cover;
   flex-shrink: 0;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.in-panel-capture__thumb:hover {
+  border-color: #1a1a1a;
 }
 
 .in-panel-capture__details {
@@ -117,14 +125,15 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #e5e0d8;
-  border: 2px solid transparent;
+  border: 2px solid rgba(0, 0, 0, 0.15);
   cursor: pointer;
   padding: 0;
+  transition: border-color 0.2s, transform 0.15s;
 }
 
 .in-panel-capture__color-swatch:hover {
   border-color: #1a1a1a;
+  transform: scale(1.08);
 }
 
 /* OLIVE PANEL */

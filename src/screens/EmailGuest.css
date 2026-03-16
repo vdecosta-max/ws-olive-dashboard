@@ -119,9 +119,9 @@
 .email-guest__product-image {
   width: 120px;
   height: 120px;
-  background: var(--rule);
   border-radius: 8px;
   margin-bottom: 12px;
+  object-fit: cover;
   flex-shrink: 0;
 }
 

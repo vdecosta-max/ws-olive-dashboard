@@ -10,7 +10,7 @@ export default function SiteHeader() {
       {/* 0. BRAND NAV BAR (white, thin, above Reserve) */}
       <nav className="site-header__brand-bar" aria-label="Williams Sonoma family brands">
         <div className="site-header__brand-links">
-          <a href="#ws" className="site-header__brand-link site-header__brand-link--active">Williams Sonoma</a>
+          <a href="https://www.williams-sonoma.com/?cm_type=gnav" className="site-header__brand-link site-header__brand-link--active">Williams Sonoma</a>
           <a href="#wsh" className="site-header__brand-link">Williams Sonoma Home</a>
           <a href="#wsb2b" className="site-header__brand-link">Williams Sonoma Business to Business</a>
           <a href="#pb" className="site-header__brand-link">Pottery Barn</a>
@@ -54,8 +54,8 @@ export default function SiteHeader() {
             <span aria-hidden="true">⌕</span>
           </button>
         </div>
-        <a href="/" className="site-header__wordmark">
-          <img src="/WS_horizontal.svg" alt="Williams Sonoma" height="32" />
+        <a href="https://www.williams-sonoma.com/?cm_type=gnav" className="site-header__wordmark" aria-label="Williams Sonoma - Home">
+          <span className="site-header__wordmark-text">Williams Sonoma</span>
         </a>
         <nav className="site-header__actions" aria-label="Account and cart">
           <a href="#account" className="site-header__action">

@@ -7,6 +7,9 @@ import EmailMagicLink from './screens/EmailMagicLink'
 import EmailGuest from './screens/EmailGuest'
 import EmailNotification from './screens/EmailNotification'
 import InPanelCapture from './screens/InPanelCapture'
+import MobileOliveCapture from './screens/MobileOliveCapture'
+import IPhoneFrame from './components/iPhoneFrame'
+import GmailFrame from './components/GmailFrame'
 import './App.css'
 
 function App() {
@@ -27,27 +30,39 @@ function App() {
         )
       case 'email-new-user':
         return (
-          <div className="app-email-preview">
-            <EmailMagicLink />
-          </div>
+          <GmailFrame>
+            <div className="app-email-preview">
+              <EmailMagicLink />
+            </div>
+          </GmailFrame>
         )
       case 'email-guest':
         return (
-          <div className="app-email-preview">
-            <EmailGuest />
-          </div>
+          <GmailFrame>
+            <div className="app-email-preview">
+              <EmailGuest />
+            </div>
+          </GmailFrame>
         )
       case 'email-notification':
         return (
-          <div className="app-email-preview">
-            <EmailNotification />
-          </div>
+          <GmailFrame>
+            <div className="app-email-preview">
+              <EmailNotification />
+            </div>
+          </GmailFrame>
         )
       case 'in-panel-flow':
         return (
           <>
             <InPanelCapture captureMode={captureMode} />
           </>
+        )
+      case 'mobile-olive':
+        return (
+          <IPhoneFrame>
+            <MobileOliveCapture captureMode={captureMode} />
+          </IPhoneFrame>
         )
       default:
         return null

@@ -157,15 +157,18 @@
 .site-header__wordmark {
   display: block;
   text-decoration: none;
+  color: #1a1a1a;
 }
 
-.site-header__wordmark img {
-  height: 32px;
-  width: auto;
-  display: block;
+.site-header__wordmark-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
 }
 
-.site-header__wordmark:hover img {
+.site-header__wordmark:hover .site-header__wordmark-text {
   opacity: 0.85;
 }
 

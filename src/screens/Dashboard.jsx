@@ -6,15 +6,23 @@
 import { useState } from 'react'
 import './Dashboard.css'
 
+const WSIMGS_BASE = 'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/'
+const RECIPE_IMGS = {
+  primary: 'https://assets.wsimgs.com/wsimgs/rk/images/dp/recipe/202545/0005/img218l.jpg',
+  alt1: 'https://assets.wsimgs.com/wsimgs/rk/images/dp/recipe/202545/0005/img195l.jpg',
+  alt2: 'https://assets.wsimgs.com/wsimgs/rk/images/dp/recipe/202545/0005/img170l.jpg',
+  alt3: 'https://assets.wsimgs.com/wsimgs/rk/images/dp/recipe/202552/0009/img101l.jpg',
+}
+
 const CONVERSATIONS = [
   {
     id: '1',
     brand: 'Olive · Williams Sonoma',
-    summary: 'We explored cast iron options that work on induction cooktops—durability, heat retention, and easy cleanup.',
+    summary: 'We explored espresso machines for home baristas—grind quality, milk steaming, and workflow.',
     products: [
-      { name: 'Lodge Cast Iron Skillet', price: '$49.95' },
-      { name: 'Le Creuset Signature Skillet', price: '$229.95' },
-      { name: 'All-Clad D3 Skillet', price: '$129.95' },
+      { name: 'Breville Barista Pro', price: '$699.95', imageUrl: `${WSIMGS_BASE}img1xl.jpg` },
+      { name: 'Breville Oracle Touch', price: '$2,799.95', imageUrl: `${WSIMGS_BASE}img2xl.jpg` },
+      { name: 'LELIT Bianca', price: '$2,999.95', imageUrl: `${WSIMGS_BASE}img3xl.jpg` },
     ],
     date: '3 days ago',
   },
@@ -23,9 +31,9 @@ const CONVERSATIONS = [
     brand: 'Pottery Barn Style Advisor',
     summary: 'We found dining furniture for your open plan apartment—tables, chairs, and table runners that fit your space.',
     products: [
-      { name: 'Benchwright Dining Table', price: '$899' },
-      { name: 'Toscana Dining Chairs', price: '$598' },
-      { name: 'Toulouse Table Runner', price: '$49' },
+      { name: 'Benchwright Dining Table', price: '$899', imageUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=120' },
+      { name: 'Toscana Dining Chairs', price: '$598', imageUrl: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=120' },
+      { name: 'Toulouse Table Runner', price: '$49', imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=120' },
     ],
     date: '5 days ago',
     cta: 'Continue with Olive →',
@@ -33,38 +41,45 @@ const CONVERSATIONS = [
   {
     id: '3',
     brand: 'Olive · Williams Sonoma',
-    summary: 'We curated glassware and cookware for your holiday cocktail party for 20—elegant yet practical.',
+    summary: 'We curated coffee accessories and grinders for your morning routine—elegant yet practical.',
     products: [
-      { name: 'Riedel Crystal Set', price: '$189' },
-      { name: 'Gold-Rimmed Coupe Glasses', price: '$89.95' },
-      { name: 'GreenPan Reserve Stockpot', price: '$179.95' },
+      { name: 'Baratza Encore', price: '$169', imageUrl: `${WSIMGS_BASE}img1xl.jpg` },
+      { name: 'Fellow Ode', price: '$299', imageUrl: `${WSIMGS_BASE}img2xl.jpg` },
+      { name: 'Acaia Lunar', price: '$249', imageUrl: `${WSIMGS_BASE}img3xl.jpg` },
     ],
     date: '2 weeks ago',
   },
 ]
 
 const INTERESTS = [
-  { label: 'Induction Cooking', emoji: '🔥', count: 3 },
-  { label: 'Cast Iron Care', emoji: '🍳', count: 2 },
-  { label: 'Holiday Entertaining', emoji: '🥂', count: 4 },
-  { label: 'Dining & Tabletop', emoji: '🍽️', count: 2 },
-  { label: 'Small Kitchen', emoji: '📐', count: 1 },
+  { label: 'Home Espresso', emoji: '☕', count: 3 },
+  { label: 'Espresso Extraction', emoji: '🍳', count: 2 },
+  { label: 'Morning Ritual', emoji: '🥂', count: 4 },
+  { label: 'Coffee Accessories', emoji: '🍽️', count: 2 },
+  { label: 'Compact Setup', emoji: '📐', count: 1 },
 ]
 
 // Products from conversations for the horizontal scroll
 const PRODUCTS_WE_TALKED_ABOUT = [
-  { id: 'p1', name: 'Lodge Cast Iron Skillet', price: '$49.95', oliveRecommended: true },
-  { id: 'p2', name: 'Le Creuset Signature Skillet', price: '$229.95', oliveRecommended: true },
-  { id: 'p3', name: 'Benchwright Dining Table', price: '$899', oliveRecommended: false },
-  { id: 'p4', name: 'Riedel Crystal Set', price: '$189', oliveRecommended: true },
-  { id: 'p5', name: 'GreenPan Reserve Stockpot', price: '$179.95', oliveRecommended: true },
+  { id: 'p1', name: 'Breville Barista Pro', price: '$699.95', oliveRecommended: true, imageUrl: `${WSIMGS_BASE}img1xl.jpg` },
+  { id: 'p2', name: 'Breville Oracle Touch', price: '$2,799.95', oliveRecommended: true, imageUrl: `${WSIMGS_BASE}img2xl.jpg` },
+  { id: 'p3', name: 'Benchwright Dining Table', price: '$899', oliveRecommended: false, imageUrl: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=240' },
+  { id: 'p4', name: 'LELIT Bianca', price: '$2,999.95', oliveRecommended: true, imageUrl: `${WSIMGS_BASE}img3xl.jpg` },
+  { id: 'p5', name: 'Baratza Encore', price: '$169', oliveRecommended: true, imageUrl: `${WSIMGS_BASE}img4xl.jpg` },
 ]
 
 const MOCK_RECENTLY_VIEWED = [
-  { id: '1', name: 'Lodge Chef Seasoned Cast Iron Double Dutch Oven, 6-Qt.', price: '$99.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Dutch+Oven', alt: 'Lodge Cast Iron Double Dutch Oven' },
-  { id: '2', name: 'Green Cyprus Reactive Glaze Dinner Plates', price: '$17.95 – $143.60', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Plates', alt: 'Green Cyprus Dinner Plates' },
-  { id: '3', name: 'Nordic Ware Nonstick Silver Dollar Pancake Pan', price: '$49.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Pancake+Pan', alt: 'Nordic Ware Silver Dollar Pancake Pan' },
-  { id: '4', name: 'Nordic Ware Nonstick Mickey Mouse™ Pancake Pan', price: '$59.95', imageUrl: 'https://placehold.co/200x200/E5E0D8/6b6b6b?text=Mickey+Pan', alt: 'Nordic Ware Mickey Mouse Pancake Pan' },
+  { id: '1', name: 'Breville Barista Pro Espresso Machine', price: '$699.95', imageUrl: `${WSIMGS_BASE}img1xl.jpg`, alt: 'Breville Barista Pro Espresso Machine' },
+  { id: '2', name: 'Breville Bambino Plus Espresso Maker', price: '$499.95', imageUrl: `${WSIMGS_BASE}img2xl.jpg`, alt: 'Breville Bambino Plus' },
+  { id: '3', name: 'Baratza Encore Conical Burr Grinder', price: '$169', imageUrl: `${WSIMGS_BASE}img3xl.jpg`, alt: 'Baratza Encore Grinder' },
+  { id: '4', name: 'Fellow Ode Brew Grinder', price: '$299', imageUrl: `${WSIMGS_BASE}img4xl.jpg`, alt: 'Fellow Ode Grinder' },
+]
+
+const MOCK_RECENTLY_VIEWED_RECIPES = [
+  { id: 'r1', name: 'Cold Brew Concentrate', imageUrl: RECIPE_IMGS.primary, time: '15 min', servings: '4 servings' },
+  { id: 'r2', name: 'Caffè Latte', imageUrl: RECIPE_IMGS.alt1, time: '5 min', servings: '1 serving' },
+  { id: 'r3', name: 'Iced Vanilla Latte', imageUrl: RECIPE_IMGS.alt2, time: '10 min', servings: '2 servings' },
+  { id: 'r4', name: 'Espresso Martini', imageUrl: RECIPE_IMGS.alt3, time: '5 min', servings: '2 servings' },
 ]
 
 const ACCOUNT_TABS = [
@@ -93,6 +108,24 @@ function ProductCard({ product }) {
         <p className="dashboard-product-card__price">{product.price}</p>
       </div>
     </article>
+  )
+}
+
+function RecipeCard({ recipe }) {
+  return (
+    <a href="#recipe" className="dashboard-recipe-card" aria-label={`${recipe.name} recipe`}>
+      <div className="dashboard-recipe-card__image-wrap">
+        <img src={recipe.imageUrl} alt="" width="200" height="200" loading="lazy" />
+      </div>
+      <div className="dashboard-recipe-card__body">
+        <h3 className="dashboard-recipe-card__name">{recipe.name}</h3>
+        {(recipe.time || recipe.servings) && (
+          <p className="dashboard-recipe-card__meta">
+            {[recipe.time, recipe.servings].filter(Boolean).join(' · ')}
+          </p>
+        )}
+      </div>
+    </a>
   )
 }
 
@@ -142,7 +175,7 @@ export default function Dashboard() {
                   <div className="conversation-card__products">
                     {conv.products.map((p, i) => (
                       <div key={i} className="conversation-card__product">
-                        <div className="conversation-card__thumb" aria-hidden="true" />
+                        <img src={p.imageUrl} alt="" className="conversation-card__thumb" width="60" height="60" loading="lazy" />
                         <span className="conversation-card__product-name">{p.name}</span>
                         <span className="conversation-card__product-price">{p.price}</span>
                       </div>
@@ -181,7 +214,7 @@ export default function Dashboard() {
             <div className="products-scroll" role="list">
               {PRODUCTS_WE_TALKED_ABOUT.map((p) => (
                 <article key={p.id} className="product-talked-card" role="listitem">
-                  <div className="product-talked-card__thumb" aria-hidden="true" />
+                  <img src={p.imageUrl} alt="" className="product-talked-card__thumb" width="120" height="120" loading="lazy" />
                   <p className="product-talked-card__name">{p.name}</p>
                   <p className="product-talked-card__price">{p.price}</p>
                   {p.oliveRecommended && <span className="product-talked-card__badge">Olive recommended</span>}
@@ -234,6 +267,18 @@ export default function Dashboard() {
               {MOCK_RECENTLY_VIEWED.map((product) => (
                 <div key={product.id} role="listitem">
                   <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* RECENTLY VIEWED RECIPES */}
+          <section className="dashboard__card" aria-labelledby="recently-viewed-recipes-heading">
+            <h2 id="recently-viewed-recipes-heading" className="dashboard__card-title">RECENTLY VIEWED RECIPES</h2>
+            <div className="dashboard__recipe-grid" role="list" aria-label="Recently viewed recipes">
+              {MOCK_RECENTLY_VIEWED_RECIPES.map((recipe) => (
+                <div key={recipe.id} role="listitem">
+                  <RecipeCard recipe={recipe} />
                 </div>
               ))}
             </div>

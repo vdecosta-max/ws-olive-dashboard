@@ -10,6 +10,7 @@ const VIEWS = [
   { id: 'email-guest', label: 'Email: Guest' },
   { id: 'email-notification', label: 'Email: Notification' },
   { id: 'in-panel-flow', label: 'In-Panel Flow' },
+  { id: 'mobile-olive', label: 'Mobile Olive' },
 ]
 
 export default function PreviewNav({ activeView, onSelect, captureMode, onCaptureModeChange }) {
@@ -25,7 +26,7 @@ export default function PreviewNav({ activeView, onSelect, captureMode, onCaptur
           {view.label}
         </button>
       ))}
-      {activeView === 'in-panel-flow' && (
+      {(activeView === 'in-panel-flow' || activeView === 'mobile-olive') && (
         <>
           <span className="preview-nav__sep" aria-hidden="true">|</span>
           <button

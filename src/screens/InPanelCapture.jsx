@@ -4,6 +4,7 @@
  * Two states: Save Prompt | Inline Form, toggled from nav.
  */
 import SiteHeader from '../components/SiteHeader'
+import { asset } from '../utils/asset'
 import './InPanelCapture.css'
 
 export default function InPanelCapture({ captureMode = 'save-prompt' }) {
@@ -15,42 +16,54 @@ export default function InPanelCapture({ captureMode = 'save-prompt' }) {
         {/* PDP BACKGROUND */}
         <div className="in-panel-capture__pdp">
           <nav className="in-panel-capture__breadcrumb" aria-label="Breadcrumb">
-            Cookware › All Cookware › Dutch Ovens & Braisers
+            Electrics › Espresso & Coffee Makers
           </nav>
           <div className="in-panel-capture__pdp-content">
             <div className="in-panel-capture__gallery">
-              <div
+              <img
+                src="https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/img1xl.jpg"
+                alt="Breville Barista Pro Espresso Machine"
                 className="in-panel-capture__main-image"
-                aria-hidden="true"
               />
               <div className="in-panel-capture__thumbs" aria-hidden="true">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="in-panel-capture__thumb" />
+                {[
+                  'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/img1xl.jpg',
+                  'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/img2xl.jpg',
+                  'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/img3xl.jpg',
+                  'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/img4xl.jpg',
+                ].map((url, i) => (
+                  <img key={i} src={url} alt="" className="in-panel-capture__thumb" width="60" height="60" />
                 ))}
               </div>
             </div>
             <div className="in-panel-capture__details">
               <h1 className="in-panel-capture__product-title">
-                Le Creuset Signature Enameled Cast Iron Round Dutch Oven
+                Breville Barista Pro Espresso Machine
               </h1>
-              <p className="in-panel-capture__price">$270</p>
+              <p className="in-panel-capture__price">$699.95</p>
               <p className="in-panel-capture__rating">
                 ★★★★½ Read Reviews
               </p>
               <div className="in-panel-capture__sizes">
-                {['5.5 qt', '7.25 qt', '9 qt'].map((size) => (
+                {['54mm', '58mm', 'Single/Double'].map((size) => (
                   <button key={size} type="button" className="in-panel-capture__size-pill">
                     {size}
                   </button>
                 ))}
               </div>
               <div className="in-panel-capture__colors" aria-label="Color swatches">
-                {[1, 2, 3, 4, 5].map((i) => (
+                {[
+                  { color: '#1a1a1a', label: 'Black' },
+                  { color: '#c0c0c0', label: 'Brushed Stainless' },
+                  { color: '#2d2d2d', label: 'Matte Black' },
+                  { color: '#c41e3a', label: 'Red' },
+                ].map(({ color, label }) => (
                   <button
-                    key={i}
+                    key={label}
                     type="button"
                     className="in-panel-capture__color-swatch"
-                    aria-label={`Color ${i}`}
+                    style={{ backgroundColor: color }}
+                    aria-label={label}
                   />
                 ))}
               </div>
@@ -75,19 +88,19 @@ export default function InPanelCapture({ captureMode = 'save-prompt' }) {
             {/* CHAT THREAD */}
             <div className="in-panel-capture__chat">
               <div className="in-panel-capture__bubble in-panel-capture__bubble--user">
-                So the Lodge is the better value option for me to start with?
+                So the Barista Pro is the better value option for me to start with?
               </div>
               <div className="in-panel-capture__response">
                 <div className="in-panel-capture__response-row">
                   <img
-                    src="/AgentOliveIcon.png"
+                    src={asset('AgentOliveIcon.png')}
                     alt="Olive"
                     className="in-panel-capture__avatar"
                   />
                   <p className="in-panel-capture__response-text">
-                    Exactly — it&apos;s the best entry point for cast iron on induction. Seasons
-                    beautifully and lasts decades. The Le Creuset is worth it when
-                    you&apos;re ready to invest.
+                    Exactly — it&apos;s the best entry point for home espresso. Built-in grinder,
+                    solid milk steaming, and lasts for years. The Oracle Touch is worth it when
+                    you&apos;re ready to invest in full automation.
                   </p>
                 </div>
                 <p className="in-panel-capture__timestamp">Olive · 8:26 PM</p>
@@ -178,7 +191,7 @@ export default function InPanelCapture({ captureMode = 'save-prompt' }) {
                 <div className="in-panel-capture__response">
                   <div className="in-panel-capture__response-row">
                     <img
-                      src="/AgentOliveIcon.png"
+                      src={asset('AgentOliveIcon.png')}
                       alt="Olive"
                       className="in-panel-capture__avatar"
                     />

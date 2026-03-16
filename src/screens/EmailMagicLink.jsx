@@ -2,18 +2,20 @@
  * EmailMagicLink — Scenario B: New User magic link email mock.
  * Browser-viewable email at 600px width, centered.
  */
+import { asset } from '../utils/asset'
 import './EmailMagicLink.css'
 
 const CONVERSATION_SUMMARY =
-  'We explored cast iron cookware for your induction cooktop — focusing on heat distribution, care requirements, and value at different price points. You were weighing the Lodge skillet as an entry point against the Le Creuset for longevity.'
+  'We explored espresso machines for home baristas — focusing on grind quality, milk steaming, and workflow. You were weighing the Breville Barista Pro as an entry point against the Oracle Touch for full automation.'
 
+const WSIMGS_BASE = 'https://assets.wsimgs.com/wsimgs/ab/images/dp/wcm/202543/0340/'
 const PRODUCTS = [
-  { name: 'Lodge Cast Iron Skillet', price: '$49.95' },
-  { name: 'Le Creuset Signature Skillet', price: '$229.95' },
-  { name: 'All-Clad D3 Skillet', price: '$129.95' },
+  { name: 'Breville Barista Pro', price: '$699.95', imageUrl: `${WSIMGS_BASE}img1xl.jpg` },
+  { name: 'Breville Oracle Touch', price: '$2,799.95', imageUrl: `${WSIMGS_BASE}img2xl.jpg` },
+  { name: 'LELIT Bianca', price: '$2,999.95', imageUrl: `${WSIMGS_BASE}img3xl.jpg` },
 ]
 
-const THEMES = ['Induction Cooking', 'Cast Iron', 'Value vs. Longevity']
+const THEMES = ['Home Espresso', 'Milk Steaming', 'Value vs. Pro Features']
 
 export default function EmailMagicLink() {
   return (
@@ -22,7 +24,7 @@ export default function EmailMagicLink() {
         {/* HEADER */}
         <header className="email-magic-link__header">
           <img
-            src="/WS_horizontal.svg"
+            src={asset('WS_horizontal.svg')}
             alt="Williams Sonoma"
             height="32"
             className="email-magic-link__wordmark"
@@ -47,7 +49,7 @@ export default function EmailMagicLink() {
           <div className="email-magic-link__summary-card">
             <div className="email-magic-link__summary-header">
               <img
-                src="/AgentOliveIcon.png"
+                src={asset('AgentOliveIcon.png')}
                 alt="Olive"
                 className="email-magic-link__avatar"
               />
@@ -61,9 +63,12 @@ export default function EmailMagicLink() {
           <div className="email-magic-link__products">
             {PRODUCTS.map((product) => (
               <div key={product.name} className="email-magic-link__product">
-                <div
+                <img
+                  src={product.imageUrl}
+                  alt=""
                   className="email-magic-link__product-image"
-                  aria-hidden="true"
+                  width="120"
+                  height="120"
                 />
                 <p className="email-magic-link__product-name">{product.name}</p>
                 <p className="email-magic-link__product-price">{product.price}</p>
@@ -105,7 +110,7 @@ export default function EmailMagicLink() {
           {/* Footer */}
           <footer className="email-magic-link__footer">
             <img
-              src="/WS_horizontal.svg"
+              src={asset('WS_horizontal.svg')}
               alt="Williams Sonoma"
               height="24"
               className="email-magic-link__footer-wordmark"
