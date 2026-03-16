@@ -153,7 +153,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 16px 20px;
+  padding: 14px 20px;
   background: none;
   border: none;
   cursor: pointer;
@@ -164,14 +164,14 @@
 .conversation-accordion__header-left {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 8px;
+  flex-wrap: nowrap;
+  gap: 0 8px;
   flex: 1;
   min-width: 0;
 }
 
 .conversation-accordion__brand-row {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   flex-shrink: 0;
 }
@@ -180,8 +180,9 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  vertical-align: middle;
+  flex-shrink: 0;
   margin-right: 6px;
+  vertical-align: middle;
 }
 
 .conversation-accordion__agent-brand {
@@ -210,7 +211,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .conversation-accordion__summary-preview--full {
@@ -233,6 +235,11 @@
   align-items: center;
   flex-shrink: 0;
   margin-left: 16px;
+  gap: 16px;
+}
+
+.conversation-accordion__header-right .conversation-accordion__cta {
+  line-height: 1.2;
 }
 
 .conversation-accordion__cta {
@@ -250,7 +257,9 @@
 .conversation-accordion__chevron {
   font-size: 20px;
   color: var(--light);
-  margin-left: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .conversation-accordion__body {
@@ -265,7 +274,7 @@
 }
 
 .conversation-accordion__body-inner {
-  padding: 0 20px 20px;
+  padding: 12px 20px 20px;
   border-top: 1px solid #e5e0d8;
   margin: 0 20px;
 }
@@ -285,13 +294,14 @@
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
-  margin: 0 0 12px;
+  margin: 16px 0 12px;
 }
 
 .conversation-accordion__products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 16px 16px;
+  row-gap: 12px;
   margin-bottom: 16px;
 }
 
@@ -428,13 +438,32 @@
   border-color: var(--rule);
 }
 
+.interest-tile--active {
+  border-color: var(--gold);
+  border-width: 2px;
+}
+
+.dashboard__theme-filtered-convs {
+  margin-top: 16px;
+}
+
+.interest-tile--active {
+  border-color: var(--gold);
+  border-width: 2px;
+}
+
 .dashboard__back-to-themes {
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 14px;
   color: var(--gold);
   text-decoration: none;
+  margin-top: 20px;
   margin-bottom: 12px;
   display: inline-block;
+}
+
+.dashboard__theme-filtered-convs {
+  margin-top: 12px;
 }
 
 .dashboard__back-to-themes:hover {

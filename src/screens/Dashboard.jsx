@@ -1,6 +1,6 @@
 /**
  * Dashboard — My Account screen for Williams Sonoma Olive prototype.
- * Left: MY CONVERSATIONS (accordion), THEMES, PRODUCTS & RECIPES
+ * Left: OUR CONVERSATIONS (accordion), THEMES, PRODUCTS & RECIPES
  * Right: RECENT ORDERS, RECENTLY VIEWED
  */
 import { useState } from 'react'
@@ -265,34 +265,27 @@ export default function Dashboard() {
 
       <div className="dashboard__content">
         <div className="dashboard__left">
-          {/* MY CONVERSATIONS */}
-          <section className="dashboard__card" aria-labelledby="conversations-heading">
-            <h2 id="conversations-heading" className="dashboard__card-title">MY CONVERSATIONS</h2>
-            <div className="conversation-accordion-list" role="list">
-              {displayedConvs.map((conv) => (
-                <ConversationAccordion
-                  key={conv.id}
-                  conv={conv}
-                  isOpen={openConvId === conv.id}
-                  onToggle={toggleConv}
-                  forceOpen={forceOpenInFilter === conv.id}
-                />
-              ))}
-            </div>
-          </section>
+          {/* OUR CONVERSATIONS — hidden when theme filter is active */}
+          {!showFilteredThemes && (
+            <section className="dashboard__card" aria-labelledby="conversations-heading">
+              <h2 id="conversations-heading" className="dashboard__card-title">OUR CONVERSATIONS</h2>
+              <div className="conversation-accordion-list" role="list">
+                {CONVERSATIONS.map((conv) => (
+                  <ConversationAccordion
+                    key={conv.id}
+                    conv={conv}
+                    isOpen={openConvId === conv.id}
+                    onToggle={toggleConv}
+                    forceOpen={false}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
 
-          {/* THEMES ACROSS YOUR CONVERSATIONS */}
+          {/* THEMES ACROSS OUR CONVERSATIONS */}
           <section className="dashboard__card" aria-labelledby="themes-heading">
-            <h2 id="themes-heading" className="dashboard__card-title">THEMES ACROSS YOUR CONVERSATIONS</h2>
-            {showFilteredThemes && (
-              <a
-                href="#back"
-                className="dashboard__back-to-themes"
-                onClick={(e) => { e.preventDefault(); setThemeFilter(null) }}
-              >
-                ← Back to all themes
-              </a>
-            )}
+            <h2 id="themes-heading" className="dashboard__card-title">THEMES ACROSS OUR CONVERSATIONS</h2>
             <div className={`interests-grid ${showFilteredThemes ? 'interests-grid--filtered' : ''}`} role="list">
               {THEMES.map((item) => {
                 const isCastIron = item.label === 'Cast Iron Care'
@@ -301,7 +294,7 @@ export default function Dashboard() {
                   <button
                     key={item.label}
                     type="button"
-                    className={`interest-tile ${showFilteredThemes && !isCastIron ? 'interest-tile--disabled' : ''}`}
+                    className={`interest-tile ${showFilteredThemes && !isCastIron ? 'interest-tile--disabled' : ''} ${showFilteredThemes && isCastIron ? 'interest-tile--active' : ''}`}
                     role="listitem"
                     onClick={isInteractive ? () => setThemeFilter(themeFilter === 'Cast Iron Care' ? null : 'Cast Iron Care') : undefined}
                     disabled={showFilteredThemes && !isCastIron}
@@ -316,6 +309,26 @@ export default function Dashboard() {
                 + Discover more
               </span>
             </div>
+            {showFilteredThemes && castIronConv && (
+              <>
+                <a
+                  href="#back"
+                  className="dashboard__back-to-themes"
+                  onClick={(e) => { e.preventDefault(); setThemeFilter(null) }}
+                >
+                  ← Back to all themes
+                </a>
+                <div className="dashboard__theme-filtered-convs" role="list">
+                  <ConversationAccordion
+                    key={castIronConv.id}
+                    conv={castIronConv}
+                    isOpen={true}
+                    onToggle={toggleConv}
+                    forceOpen={true}
+                  />
+                </div>
+              </>
+            )}
           </section>
 
           {/* PRODUCTS & RECIPES WE TALKED ABOUT RECENTLY */}
